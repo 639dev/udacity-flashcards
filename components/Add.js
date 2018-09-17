@@ -1,9 +1,11 @@
 import React from 'react'
-import { View, StyleSheet, Text, TouchableOpacity } from 'react-native'
+import { View, StyleSheet, Text, TouchableOpacity,KeyboardAvoidingView } from 'react-native'
 import { FormLabel, FormInput, FormValidationMessage } from 'react-native-elements'
 import { addQuestionForDeck } from '../utils/api'
+import { addCard } from '../actions'
+import { connect } from 'react-redux'
 
-export default class Add extends React.Component {
+class Add extends React.Component {
 	constructor(props) {
 	    super(props)
 		this.state = {
@@ -21,19 +23,20 @@ export default class Add extends React.Component {
 	}
 	submit() {
 	   const { question, answer } = this.state
-	   const {deck} = this.props.navigation.state.params;
+	   const {dispatch} = this.props
+	   const {current_deck} = this.props.navigation.state.params
 	   if(question && answer)
 	   {
-	   		addQuestionForDeck({question: question,answer: answer },deck.title)
+	   		addQuestionForDeck({question: question,answer: answer },current_deck.title).then(dispatch(addCard({question: question,answer: answer },current_deck.title)))
+	   		this.props.navigation.goBack()
 	   }
 	}
 
 	render() {
 		const {deck} = this.props.navigation.state.params;
 		const { question, answer } = this.state
-		console.log(question);
 		return (
-			<View styles={styles.container}>
+			<KeyboardAvoidingView behavior="padding" styles={styles.container}>
 				<FormLabel>Question</FormLabel>
 				<FormInput value={this.state.question} onChangeText={(question) => this.setState({question})} />
 
@@ -41,9 +44,9 @@ export default class Add extends React.Component {
 				<FormInput value={this.state.answer} onChangeText={(answer) => this.setState({answer})}/>
 
 				<TouchableOpacity style={styles.button} onPress={this.submit}>
-					<Text>SUBMIT</Text>
+					<Text style={styles.text}>SUBMIT</Text>
 				</TouchableOpacity>
-			</View>
+			</KeyboardAvoidingView>
 		)
 	}
 }
@@ -52,20 +55,22 @@ export default class Add extends React.Component {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		alignItems: 'center',
-    	justifyContent: 'center',
 	},
 	button: {
 		justifyContent: 'center',
 		alignItems: 'center',
 		paddingTop: 20,
 		paddingBottom: 20,
-		borderWidth: 1,
-		backgroundColor: 'gray',
+		backgroundColor: 'tomato',
 		width: '90%',
-		marginTop: 40,
+		marginTop: 30,
 		marginBottom: 10,
 		marginRight: '5%',
 		marginLeft: '5%',
+	},
+	text: {
+		color: '#fff'
 	}
 })
+
+export default connect()(Add)

@@ -24,21 +24,50 @@ let decks = {
         answer: 'The combination of a function and the lexical environment within which that function was declared.'
       }
     ]
+  },
+  NodeJS: {
+    title: 'NodeJS',
+    questions: [
+      {
+        question: 'What is NodeJS?',
+        answer: 'Node.js is an open source server environment, free, runs on various platforms (Windows, Linux, Unix, Mac OS X, etc.) and uses JavaScript on the server.'
+      }
+    ]
+  },
+  Laravel: {
+    title: 'Laravel',
+    questions: [
+      {
+        question: 'What is C in MVC stands for?',
+        answer: 'Stands for the Controller!'
+      }
+    ]
+  },
+  Ruby: {
+    title: 'Ruby',
+    questions: [
+      {
+        question: 'One way to implement a loop in Ruby?',
+        answer: 'numberOfIterations.times(...).'
+      }
+    ]
   }
 }
 
 
-export function fetchDecks() {
+
+
+export async function fetchDecks() {
     return AsyncStorage.getItem(DECKS_STORAGE_KEY).then(results => {
         return results === null ? initialData() : JSON.parse(results)
     });
 }
 
-export function createDeck(deck) {
+export async function createDeck(deck) {
     return AsyncStorage.mergeItem(DECKS_STORAGE_KEY, JSON.stringify(deck));
 }
 
-export function addQuestionForDeck(card, deckName) {
+export async function addQuestionForDeck(card, deckName) {
     return AsyncStorage.getItem(DECKS_STORAGE_KEY, (err, result) => {
         let decks = JSON.parse(result);
 
@@ -53,7 +82,7 @@ export function addQuestionForDeck(card, deckName) {
     });
 }
 
-export function initialData() {
+export async function initialData() {
     AsyncStorage.setItem(DECKS_STORAGE_KEY, JSON.stringify(decks));
     return decks;
 }

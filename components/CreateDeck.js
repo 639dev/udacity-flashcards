@@ -1,9 +1,11 @@
 import React from 'react'
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity, KeyboardAvoidingView } from 'react-native'
 import { FormLabel, FormInput, FormValidationMessage } from 'react-native-elements'
 import { createDeck } from '../utils/api'
+import { connect } from 'react-redux'
+import { addDeck } from '../actions'
 
-export default class CreateDeck extends React.Component {
+class CreateDeck extends React.Component {
 	constructor(props) {
 	    super(props)
 		this.state = {
@@ -11,33 +13,37 @@ export default class CreateDeck extends React.Component {
 	    }
 	    this.submit= this.submit.bind(this)
   	}
-	
 
 	errorHandler() {
 	  if (this.state.error) {
 	    this.formInput.shake()
 	  }
 	}
+
 	submit() {
 	   const { title } = this.state
+	   const {dispatch} = this.props;
 
 	   if( title )
 	   {
 	   	 createDeck({[title]: {title, questions: []}})
+	   	 	.then(dispatch(addDeck({[title]: {title, questions: []}})))
+	   	 	.then(this.props.navigation.navigate('Deck',{title, questions: []}))
+	   	 this.setState({title: ''});
 	   }
 	}
 
 	render() {
 		return (
-			<View styles={styles.container}>
+			<KeyboardAvoidingView behavior="padding" styles={styles.container}>
 				<Text style={styles.title}>What is the title of your deck? </Text>
-				<FormLabel>Title</FormLabel>
+				
 				<FormInput value={this.state.title} onChangeText={(title) => this.setState({title})} />
 
 				<TouchableOpacity style={styles.button} onPress={this.submit}>
-					<Text>SUBMIT</Text>
+					<Text style={styles.text}>SUBMIT</Text>
 				</TouchableOpacity>
-			</View>
+			</KeyboardAvoidingView>
 		)
 	}
 }
@@ -54,16 +60,23 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 		paddingTop: 20,
 		paddingBottom: 20,
-		borderWidth: 1,
-		backgroundColor: 'gray',
+		backgroundColor: 'tomato',
 		width: '90%',
-		marginTop: 40,
+		marginTop: 50,
 		marginBottom: 10,
 		marginRight: '5%',
 		marginLeft: '5%',
 	},
+	text: {
+		color: '#fff'
+	},
 	title: {
-		fontSize: 25,
-		fontWeight: "900"
+		textAlign: 'center',
+		fontSize: 20,
+		fontWeight: "700",
+		marginTop: 50,
+		marginBottom: 20,
 	}
 })
+
+export default connect()(CreateDeck)

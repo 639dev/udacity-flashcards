@@ -9,6 +9,15 @@ import NewDeck  from './components/NewDeck'
 import Add from './components/Add'
 import CreateDeck from './components/CreateDeck'
 import Quiz from './components/Quiz'
+import { setLocalNotification } from './utils/helper' 
+import { createStore } from 'redux'
+import { Provider } from 'react-redux'
+import reducers from './reducers'
+import { handleInitialData } from './actions'
+import middleware from './middleware'
+
+
+const store = createStore(reducers,middleware)
 
 
 const Tabs =  createBottomTabNavigator(
@@ -76,11 +85,19 @@ const Navigator = createStackNavigator({
 
 
 export default class App extends React.Component {
+  state = {
+    decks: {}
+  }
+  componentDidMount() {
+    return setLocalNotification()
+  }
   render() {
     return (
+      <Provider store={store}>
         <View style={{flex: 1}}>
-          <Navigator />
+            <Navigator/>
         </View>
+      </Provider>
     );
   }
 }

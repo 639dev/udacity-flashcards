@@ -1,24 +1,25 @@
 import React from 'react'
-import { StyleSheet, Text, View,TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View,TouchableOpacity, ScrollView, AsyncStorage} from 'react-native';
 import { Card, ListItem, Button, Icon } from 'react-native-elements'
 import { fetchDecks } from '../utils/api'
+import { getDecks } from '../actions'
+import { connect } from 'react-redux'
 import _ from 'lodash'
 
-export default class Home extends React.Component {
-	state = {
-		decks: {}
-	}
+class Home extends React.Component {
+
 	componentDidMount() {
-		fetchDecks().then(data => this.setState({decks: Object.keys(data).map((key)=>(data[key]))}))
+		const {dispatch} = this.props;
+		fetchDecks().then( decks => dispatch(getDecks(decks)) )
 	}
 
 	render() {
-		const {decks} = this.state
+		const {decks} = this.props
 		return (
-			<View styles={styles.container}>
+			<ScrollView styles={styles.container}>
 				{_.values(decks).map((deck) => {
 			      return (
-			        <TouchableOpacity onPress={() => this.props.navigation.navigate('Deck',{deck})} key={deck.title}>
+			        <TouchableOpacity onPress={() => this.props.navigation.navigate('Deck',deck)} key={deck.title}>
 						<Card containerStyle={{alignItems: 'center',justifyContent: 'center'}}>
 					        <View>
 					          <Text style={styles.title}>{deck.title}</Text>
@@ -28,14 +29,16 @@ export default class Home extends React.Component {
 			        </TouchableOpacity>
 			      )
 			    }) }
-			</View>
+			</ScrollView>
 		)
 	}
 }
 
-
-
-
+function mapStateToProps (decks) {
+  return {
+    decks,
+  }
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -59,3 +62,5 @@ const styles = StyleSheet.create({
   	color: 'gray'
   }
 });
+
+export default connect(mapStateToProps)(Home)

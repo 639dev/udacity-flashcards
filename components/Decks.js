@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, Text, View,TouchableOpacity, ScrollView } from 'react-native';
+import { StyleSheet, Text, View,TouchableOpacity, ScrollView, AsyncStorage} from 'react-native';
 import { Card, ListItem, Button, Icon } from 'react-native-elements'
 import { _getDecks } from '../utils/api'
 import { getDecks } from '../actions'
@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
   	backgroundColor: 'red',
   },
   title: {
-  	fontWeight: "900",
+  	fontWeight: "700",
   	fontSize: 18
   },
   sub: {

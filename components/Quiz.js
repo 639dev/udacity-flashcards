@@ -80,6 +80,7 @@ export default class Quiz extends React.Component {
 					<TouchableOpacity style={[styles.button,{backgroundColor: '#c0392b'}]} onPress={this.submit_incorrect}>
 						<Text style={styles.text}>Incorrect</Text>
 					</TouchableOpacity>
+					<Text style={[styles.center,{marginTop: 30}]}>Question {this.state.index + 1} out of {current_deck.questions.length+1}</Text>
 				</View>
 			)
 	}

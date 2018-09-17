@@ -46,7 +46,7 @@ export default class Quiz extends React.Component {
 		if( current_deck.questions.length === 0 ) {
 			return (
 				<View>
-					<Text>This deck contains no cards</Text>
+					<Text style={[styles.center,{fontSize:13,fontWeight:'600',marginTop: 70}]}>This deck contains no cards</Text>
 				</View>
 			)
 		}

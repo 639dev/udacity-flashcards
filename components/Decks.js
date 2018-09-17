@@ -7,7 +7,7 @@ import { connect } from 'react-redux'
 import _ from 'lodash'
 
 class Home extends React.Component {
-	
+
 	componentDidMount() {
 		const {dispatch} = this.props;
 		_getDecks().then( decks => dispatch(getDecks(decks)) )

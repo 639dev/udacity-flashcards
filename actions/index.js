@@ -1,4 +1,3 @@
-import { addQuestionForDeck, createDeck, fetchDecks, initialData} from '../utils/api.js'
 export const GET_DECKS = 'GET_DECKS'
 export const ADD_CARD = 'ADD_CARD'
 export const ADD_DECK = 'ADD_DECK'
@@ -24,14 +23,4 @@ export function addCard(card,deckTitle) {
     deckTitle,
     card,
   };
-}
-
-export function handleAddCard(card,deckTitle) {
-  return (dispatch) => {
-    return addQuestionForDeck(card,deckTitle)
-      .then(card =>  {
-        dispatch(addCard(card,deckTitle))
-        }
-      )
-  }
 }

@@ -1,7 +1,7 @@
 import React from 'react'
 import { View, StyleSheet, Text, TouchableOpacity,KeyboardAvoidingView } from 'react-native'
 import { FormLabel, FormInput, FormValidationMessage } from 'react-native-elements'
-import { addQuestionForDeck } from '../utils/api'
+import { _addCard } from '../utils/api'
 import { addCard } from '../actions'
 import { connect } from 'react-redux'
 
@@ -27,7 +27,7 @@ class Add extends React.Component {
 	   const {current_deck} = this.props.navigation.state.params
 	   if(question && answer)
 	   {
-	   		addQuestionForDeck({question: question,answer: answer },current_deck.title).then(dispatch(addCard({question: question,answer: answer },current_deck.title)))
+	   		_addCard({question: question,answer: answer },current_deck.title).then(dispatch(addCard({question: question,answer: answer },current_deck.title)))
 	   		this.props.navigation.goBack()
 	   }
 	}

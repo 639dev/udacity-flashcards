@@ -57,32 +57,32 @@ let decks = {
 
 
 
-export async function fetchDecks() {
+export async function _getDecks() {
     return AsyncStorage.getItem(DECKS_STORAGE_KEY).then(results => {
-        return results === null ? initialData() : JSON.parse(results)
+        return results === null ? initial_data() : JSON.parse(results)
     });
 }
 
-export async function createDeck(deck) {
+export async function _addDeck(deck) {
     return AsyncStorage.mergeItem(DECKS_STORAGE_KEY, JSON.stringify(deck));
 }
 
-export async function addQuestionForDeck(card, deckName) {
-    return AsyncStorage.getItem(DECKS_STORAGE_KEY, (err, result) => {
-        let decks = JSON.parse(result);
+export async function _addCard(card, deckName) {
+    return AsyncStorage.getItem(DECKS_STORAGE_KEY, (err, decks_list) => {
+        let decks = JSON.parse(decks_list);
 
-        let newQuestions = JSON.parse(JSON.stringify(decks[deckName].questions));
-        newQuestions[newQuestions.length] = card;
+        let questions = JSON.parse(JSON.stringify(decks[deckName].questions));
+        questions[questions.length] = card;
 
         const value = JSON.stringify({
-            [deckName]: {title: deckName, questions: newQuestions},
+            [deckName]: {title: deckName, questions: questions},
         });
 
         AsyncStorage.mergeItem(DECKS_STORAGE_KEY, value);
     });
 }
 
-export async function initialData() {
+export async function initial_data() {
     AsyncStorage.setItem(DECKS_STORAGE_KEY, JSON.stringify(decks));
     return decks;
 }

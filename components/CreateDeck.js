@@ -1,7 +1,7 @@
 import React from 'react'
 import { View, Text, StyleSheet, TouchableOpacity, KeyboardAvoidingView } from 'react-native'
 import { FormLabel, FormInput, FormValidationMessage } from 'react-native-elements'
-import { createDeck } from '../utils/api'
+import { _addDeck } from '../utils/api'
 import { connect } from 'react-redux'
 import { addDeck } from '../actions'
 
@@ -26,7 +26,7 @@ class CreateDeck extends React.Component {
 
 	   if( title )
 	   {
-	   	 createDeck({[title]: {title, questions: []}})
+	   	 _addDeck({[title]: {title, questions: []}})
 	   	 	.then(dispatch(addDeck({[title]: {title, questions: []}})))
 	   	 	.then(this.props.navigation.navigate('Deck',{title, questions: []}))
 	   	 this.setState({title: ''});

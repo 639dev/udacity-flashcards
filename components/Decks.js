@@ -1,7 +1,7 @@
 import React from 'react'
-import { StyleSheet, Text, View,TouchableOpacity, ScrollView, AsyncStorage} from 'react-native';
+import { StyleSheet, Text, View,TouchableOpacity, ScrollView } from 'react-native';
 import { Card, ListItem, Button, Icon } from 'react-native-elements'
-import { fetchDecks } from '../utils/api'
+import { _getDecks } from '../utils/api'
 import { getDecks } from '../actions'
 import { connect } from 'react-redux'
 import _ from 'lodash'
@@ -10,7 +10,7 @@ class Home extends React.Component {
 
 	componentDidMount() {
 		const {dispatch} = this.props;
-		fetchDecks().then( decks => dispatch(getDecks(decks)) )
+		_getDecks().then( decks => dispatch(getDecks(decks)) )
 	}
 
 	render() {

@@ -24,12 +24,12 @@ export default class Quiz extends React.Component {
 
 	submit_correct() {
 		const {correct,index} = this.state
-		this.setState({correct: correct+1,index: index+1})
+		this.setState({correct: correct+1,index: index+1,show_answer: false})
 	}
 
 	submit_incorrect() {
 		const {incorrect,index} = this.state
-		this.setState({incorrect: incorrect+1,index: index+1})
+		this.setState({incorrect: incorrect+1,index: index+1,show_answer: false})
 	}
 
 	restart() {

@@ -1,14 +1,14 @@
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import Decks from './Decks'
-import NewDeck  from './NewDeck'
+import CreateDeck  from './CreateDeck'
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { createBottomTabNavigator,StackNavigator } from 'react-navigation';
 
 export default createBottomTabNavigator(
   {
     Decks: Decks,
-    NewDeck: NewDeck,
+    NewDeck: CreateDeck,
   },
   {
     navigationOptions: ({ navigation }) => ({

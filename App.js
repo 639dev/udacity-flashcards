@@ -5,7 +5,6 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import { createBottomTabNavigator,createStackNavigator } from 'react-navigation';
 import Decks from './components/Decks'
 import Deck from './components/Deck'
-import NewDeck  from './components/NewDeck'
 import Add from './components/Add'
 import CreateDeck from './components/CreateDeck'
 import Quiz from './components/Quiz'

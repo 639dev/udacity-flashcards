@@ -7,10 +7,10 @@ Navigate to the directory where you want to store the app and run
 
 ```
 git clone https://github.com/sarah-maris/would-you-rather.git
-yarn install
 ```
-To start the simulator run
+Then
 ```
+cd whould-you-rather
 yarn start
 ```
-then you can choose ios or android.
+After starting the project you can choose whether ios or android simulator.
